@@ -1,16 +1,21 @@
 # example
 
-A new Flutter project.
+Proyecto de ejemplo para probar el paquete ecommerce_package_sample.
 
-## Getting Started
+## Inicio
 
-This project is a starting point for a Flutter application.
+Para iniciar se debe estar ubicado en la carpeta /example.
 
-A few resources to get you started if this is your first Flutter project:
+Luego, instala los paquetes desde la terminal:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```shell
+flutter pub get
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Este ejemplo muestra en el archivo main.dart tres botones para interactuar
+con el módulo llamando tres casos de uso:
+
+- GetAllProductsUseCase
+- GetProductByIdUseCase
+- AddProductUseCase
+

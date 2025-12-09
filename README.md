@@ -2,7 +2,7 @@
 
 Paquete de Flutter que interactúa con la api de https://fakestoreapi.com/ para obtener, crear y listar productos.
 
-## Features
+## Funcionalidades
 
 *   Obtener todos los productos.
 *   Obtener un producto por su ID.
@@ -10,7 +10,7 @@ Paquete de Flutter que interactúa con la api de https://fakestoreapi.com/ para 
 *   Manejo de dependencias listo para usar con `get_it`.
 *   Arquitectura Limpia (Clean Architecture) con capas de dominio, datos y presentación.
 
-## Getting started
+## Inicio
 
 Agrega el paquete a las dependencias de tu archivo `pubspec.yaml`:
 
