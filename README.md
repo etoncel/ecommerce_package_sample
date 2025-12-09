@@ -87,7 +87,7 @@ class ProductListScreen extends StatelessWidget {
         future: () async {
           final result = await getAllProducts();
           return result.fold(
-            (failure) => throw Exception(failure.toString()), // Maneja el error
+            (failure) => print(failure.toString()), // Maneja el error
             (products) => products, // Devuelve la lista de productos
           );
         }(),
