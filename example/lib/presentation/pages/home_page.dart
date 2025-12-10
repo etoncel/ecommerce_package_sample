@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ecommerce_package_sample/ecommerce_package_sample.dart';
-import '../bloc/product_bloc.dart';
+import 'package:example/presentation/bloc/product_bloc.dart';
+import 'package:example/presentation/widgets/product_list.dart';
+import 'package:example/presentation/widgets/product_list_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -76,13 +78,10 @@ class HomePage extends StatelessWidget {
                   );
                 }
                 if (state is AllProductsLoaded) {
-                  return _buildProductList(state.products);
+                  return ProductList(products: state.products);
                 }
                 if (state is SingleProductLoaded) {
-                  return _buildSingleProduct(
-                    state.product,
-                    'Product Loaded by ID',
-                  );
+                  return ProductListItem(product: state.product);
                 }
                 if (state is ProductAdded) {
                   return Center(
@@ -102,60 +101,6 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildProductList(List<ProductEntity> products) {
-    return ListView.builder(
-      itemCount: products.length,
-      itemBuilder: (context, index) {
-        final product = products[index];
-        return Card(
-          margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-          child: ListTile(
-            leading: product.image.isNotEmpty
-                ? Image.network(product.image, width: 50, fit: BoxFit.cover)
-                : const Icon(Icons.image),
-            title: Text(product.title),
-            subtitle: Text('{product.price}'),
-            trailing: Text('ID: ${product.id}'),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildSingleProduct(ProductEntity product, String message) {
-    return Card(
-      margin: const EdgeInsets.all(16.0),
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              message,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-            ),
-            const SizedBox(height: 10),
-            if (product.image.isNotEmpty)
-              Center(child: Image.network(product.image, height: 100)),
-            const SizedBox(height: 10),
-            Text(
-              'ID: ${product.id}',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Text('Title: ${product.title}'),
-            Text('Price: ${product.price}'),
-            Text('Description: ${product.description}'),
-          ],
-        ),
       ),
     );
   }
