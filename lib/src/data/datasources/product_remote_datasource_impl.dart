@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ecommerce_package_sample/src/core/error/server_exception.dart';
+import 'package:ecommerce_package_sample/src/core/network/endpoints.dart';
 import 'package:ecommerce_package_sample/src/data/datasources/product_remote_datasource.dart';
 import 'package:ecommerce_package_sample/src/data/models/product_model.dart';
 import 'package:http/http.dart' as http;
@@ -10,12 +11,10 @@ class ProductRemoteDatasourceImpl implements ProductRemoteDatasource {
 
   ProductRemoteDatasourceImpl({required this.client});
 
-  static const String baseUrl = 'https://fakestoreapi.com';
-
   @override
   Future<List<ProductModel>> getAllProducts() async {
     final response = await client.get(
-      Uri.parse('$baseUrl/products'),
+      Uri.parse(Endpoints.products.url),
       headers: {'Content-Type': 'application/json'},
     );
 
@@ -32,7 +31,7 @@ class ProductRemoteDatasourceImpl implements ProductRemoteDatasource {
   @override
   Future<ProductModel> getProductById(int id) async {
     final response = await client.get(
-      Uri.parse('$baseUrl/products/$id'),
+      Uri.parse(Endpoints.products.urlWithId(id: "$id")),
       headers: {'Content-Type': 'application/json'},
     );
 
@@ -51,7 +50,7 @@ class ProductRemoteDatasourceImpl implements ProductRemoteDatasource {
   @override
   Future<ProductModel> addProduct(ProductModel product) async {
     final response = await client.post(
-      Uri.parse('$baseUrl/products'),
+      Uri.parse(Endpoints.products.url),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(product.toJson()),
     );
