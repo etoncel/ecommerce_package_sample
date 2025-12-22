@@ -10,15 +10,18 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final GetAllProductsUseCase getAllProductsUseCase;
   final GetProductByIdUseCase getProductByIdUseCase;
   final AddProductUseCase addProductUseCase;
+  final GetCategoriesUseCase getCategoriesUseCase; // Nueva dependencia
 
   ProductBloc({
     required this.getAllProductsUseCase,
     required this.getProductByIdUseCase,
     required this.addProductUseCase,
+    required this.getCategoriesUseCase, // Requerido en el constructor
   }) : super(ProductInitial()) {
     on<GetAllProductsEvent>(_onGetAllProducts);
     on<GetProductByIdEvent>(_onGetProductById);
     on<AddProductEvent>(_onAddProduct);
+    on<GetCategoriesEvent>(_onGetCategories); // Nuevo handler para el evento de categorías
   }
 
   Future<void> _onGetAllProducts(
@@ -55,6 +58,20 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     failureOrNewId.fold(
       (failure) => emit(ProductError(_mapFailureToMessage(failure))),
       (newId) => emit(ProductAdded(newId)),
+    );
+  }
+
+  /// Handler para el evento [GetCategoriesEvent].
+  /// Emite estados [CategoriesLoading], [CategoriesLoaded] o [CategoriesError].
+  Future<void> _onGetCategories(
+    GetCategoriesEvent event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(CategoriesLoading());
+    final failureOrCategories = await getCategoriesUseCase();
+    failureOrCategories.fold(
+      (failure) => emit(CategoriesError(_mapFailureToMessage(failure))),
+      (categories) => emit(CategoriesLoaded(categories)),
     );
   }
 

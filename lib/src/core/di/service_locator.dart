@@ -42,6 +42,11 @@ class ServiceLocator {
       factoryCallback: () => GetProductByIdUseCase(_locator.get()),
     );
 
+    // Registro del caso de uso GetCategoriesUseCase
+    _locator.registerFactory<GetCategoriesUseCase>(
+      factoryCallback: () => GetCategoriesUseCase(productRepository: _locator.get()),
+    );
+
     _locator._showFactories();
   }
 

@@ -23,3 +23,6 @@ class AddProductEvent extends ProductEvent {
   @override
   List<Object> get props => [product];
 }
+
+/// Evento para solicitar la obtención de todas las categorías disponibles.
+class GetCategoriesEvent extends ProductEvent {}
