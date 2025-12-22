@@ -1,3 +1,7 @@
+## 0.0.3
+
+* Se agrega caso de uso para obtener categorías.
+
 ## 0.0.1
 
 * Lanzamiento inicial del paquete de ejemplo de comercio electrónico.

@@ -1,6 +1,6 @@
 name: ecommerce_package_sample
 description: "A flutter package sample for an ecommerce app"
-version: 0.0.1
+version: 0.0.3
 homepage:
 
 environment:
