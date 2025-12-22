@@ -54,6 +54,13 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 ),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.add),
+                  label: const Text('Get Categories'),
+                  onPressed: () {
+                    context.read<ProductBloc>().add(GetCategoriesEvent());
+                  },
+                ),
               ],
             ),
           ),
@@ -61,6 +68,29 @@ class HomePage extends StatelessWidget {
           Expanded(
             child: BlocBuilder<ProductBloc, ProductState>(
               builder: (context, state) {
+                if (state is CategoriesLoading) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (state is CategoriesError) {
+                  return Center(
+                    child: Text(
+                      'Error: ${state.message}',
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  );
+                }
+                if (state is CategoriesLoaded) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      final category = state.categories[index];
+                      return Column(
+                        children: [Text(category.name), Text(category.image)],
+                      );
+                    },
+
+                    itemCount: state.categories.length,
+                  );
+                }
                 if (state is ProductLoading) {
                   return const Center(child: CircularProgressIndicator());
                 }

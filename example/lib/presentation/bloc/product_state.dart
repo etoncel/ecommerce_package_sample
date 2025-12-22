@@ -38,3 +38,22 @@ class ProductError extends ProductState {
   @override
   List<Object> get props => [message];
 }
+
+/// Estado que indica que las categorías están cargándose.
+class CategoriesLoading extends ProductState {}
+
+/// Estado que indica que las categorías han sido cargadas exitosamente.
+class CategoriesLoaded extends ProductState {
+  final List<CategoryEntity> categories;
+  const CategoriesLoaded(this.categories);
+  @override
+  List<Object> get props => [categories];
+}
+
+/// Estado que indica que hubo un error al cargar las categorías.
+class CategoriesError extends ProductState {
+  final String message;
+  const CategoriesError(this.message);
+  @override
+  List<Object> get props => [message];
+}

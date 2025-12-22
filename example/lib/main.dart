@@ -27,6 +27,9 @@ class MyApp extends StatelessWidget {
           getProductByIdUseCase:
               ServiceLocator.instance<GetProductByIdUseCase>(),
           addProductUseCase: ServiceLocator.instance<AddProductUseCase>(),
+          // Se agrega la inyección de GetCategoriesUseCase
+          getCategoriesUseCase:
+              ServiceLocator.instance<GetCategoriesUseCase>(),
         ),
         child: const HomePage(),
       ),
