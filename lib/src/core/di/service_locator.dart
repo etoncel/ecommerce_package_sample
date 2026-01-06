@@ -20,26 +20,40 @@ class ServiceLocator {
     //! Features - Product
 
     // Use cases
-    _instance.registerFactory(() => GetAllProductsUseCase(_instance()));
-    _instance.registerFactory(() => GetProductByIdUseCase(_instance()));
-    _instance.registerFactory(() => AddProductUseCase(_instance()));
-    _instance.registerFactory(
-      () => GetCategoriesUseCase(productRepository: _instance()),
-    );
+    if (!_instance.isRegistered<GetAllProductsUseCase>()) {
+      _instance.registerFactory(() => GetAllProductsUseCase(_instance()));
+    }
+    if (!_instance.isRegistered<GetProductByIdUseCase>()) {
+      _instance.registerFactory(() => GetProductByIdUseCase(_instance()));
+    }
+    if (!_instance.isRegistered<AddProductUseCase>()) {
+      _instance.registerFactory(() => AddProductUseCase(_instance()));
+    }
+    if (!_instance.isRegistered<GetCategoriesUseCase>()) {
+      _instance.registerFactory(
+        () => GetCategoriesUseCase(productRepository: _instance()),
+      );
+    }
 
     // Repository
-    _instance.registerFactory<ProductRepository>(
-      () => ProductRepositoryImpl(remoteDatasource: _instance()),
-    );
+    if (!_instance.isRegistered<ProductRepository>()) {
+      _instance.registerFactory<ProductRepository>(
+        () => ProductRepositoryImpl(remoteDatasource: _instance()),
+      );
+    }
 
     // Data sources
-    _instance.registerFactory<ProductRemoteDatasource>(
-      () => ProductRemoteDatasourceImpl(client: _instance()),
-    );
+    if (!_instance.isRegistered<ProductRemoteDatasource>()) {
+      _instance.registerFactory<ProductRemoteDatasource>(
+        () => ProductRemoteDatasourceImpl(client: _instance()),
+      );
+    }
   }
 
   static void _setUpExternal() {
     //! External
-    _instance.registerFactory(() => http.Client());
+    if (!_instance.isRegistered<http.Client>()) {
+      _instance.registerFactory(() => http.Client());
+    }
   }
 }
